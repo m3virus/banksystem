@@ -1,6 +1,5 @@
 ﻿using BankSystem.Domain.Models.Base;
 using BankSystem.Domain.Models.Entities;
-using BankSystem.Infrastructure.Event;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;

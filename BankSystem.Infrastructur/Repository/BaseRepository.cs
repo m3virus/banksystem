@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using BankSystem.Domain.Models.Base;
 using BankSystem.Infrastructure.Context;
 using BankSystem.Infrastructure.IRepository;
