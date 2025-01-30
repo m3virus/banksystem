@@ -25,8 +25,8 @@
 
         public static BaseResponse Success() => new (true, Error.None);
         public static BaseResponse Failure(Error error) => new (false, error);
-        public static BaseResponse<T> Success<T>(T Data) => new (Data,true, Error.None);
-        public static BaseResponse<T> Failure<T>(T Data, Error error) => new (default,false, error);
+        public static BaseResponse<T> Success<T>(T data) => new (data,true, Error.None);
+        public static BaseResponse<T> Failure<T>(T data, Error error) => new (default!,false, error);
 
     }
 

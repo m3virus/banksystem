@@ -1,6 +1,4 @@
-﻿using System.Xml;
-
-namespace BankSystem.Domain.Models.Base
+﻿namespace BankSystem.Domain.Models.Base
 {
     public record Error(string Name,  string Message)
     {

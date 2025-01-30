@@ -8,7 +8,7 @@ namespace BankSystem.Domain.Models.Entities
     public class Customer : BaseEntity
     {
         #region Properties
-        public string UserName { get; set; }
+        public string Name { get; set; }
         public string NationalCode { get; set; }
         public DateTime BirthDate { get; set; }
 
@@ -23,7 +23,7 @@ namespace BankSystem.Domain.Models.Entities
 
         #region Relations
 
-        public Guid AccountId { get; set; }
+        public Guid? AccountId { get; set; }
         public Account Account { get; set; }
 
         #endregion

@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankSystem.Api", "BankSystem.Api\BankSystem.Api.csproj", "{518C04F8-9E97-4798-B995-340DDCF8DAA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankSystem.Api", "BankSystem.Api\BankSystem.Api.csproj", "{518C04F8-9E97-4798-B995-340DDCF8DAA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankSystem.Domain", "BankSystem.Domain\BankSystem.Domain.csproj", "{C7C6C717-ACCA-47E7-9819-1157F25AB473}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankSystem.Domain", "BankSystem.Domain\BankSystem.Domain.csproj", "{C7C6C717-ACCA-47E7-9819-1157F25AB473}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankSystem.Application", "BankSystem.Application\BankSystem.Application.csproj", "{774AD0AD-93C0-434E-9833-AA4489F56792}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankSystem.Application", "BankSystem.Application\BankSystem.Application.csproj", "{774AD0AD-93C0-434E-9833-AA4489F56792}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankSystem.Infrastructur", "BankSystem.Infrastructur\BankSystem.Infrastructur.csproj", "{7A4BEDF5-FAB3-4E8F-98A8-A5AD00BFC90B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankSystem.Infrastructure", "BankSystem.Infrastructur\BankSystem.Infrastructure.csproj", "{7A4BEDF5-FAB3-4E8F-98A8-A5AD00BFC90B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

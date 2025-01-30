@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BankSystem.Infrastructur\BankSystem.Infrastructur.csproj" />
+    <ProjectReference Include="..\BankSystem.Infrastructur\BankSystem.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,5 +15,7 @@
     <Folder Include="Extensions\" />
     <Folder Include="Models\" />
   </ItemGroup>
-
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App"/>
+	</ItemGroup>
 </Project>

@@ -18,7 +18,8 @@ namespace BankSystem.Domain.Models.Entities
         public Guid CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
 
-        public virtual ICollection<BankTransaction> BankTransactions { get; set; }
+        public ICollection<BankTransaction> TransactionsAsOrigin { get; set; }
+        public ICollection<BankTransaction> TransactionsAsDestination { get; set; }
 
         #endregion
     }
