@@ -1,23 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BankSystem.Domain.Models.Entities;
+﻿using BankSystem.Domain.Models.Entities;
 using BankSystem.Infrastructure.Context;
 using BankSystem.Infrastructure.CustomException;
-using BankSystem.Infrastructure.Extensions;
 using BankSystem.Infrastructure.IRepository;
 using BankSystem.Infrastructure.Repository;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace BankSystem.Infrastructure
 {
-    public class UnitOfWork(AppDbContext context, GetUserInfo userInfo) : IUnitOfWork
+    public class UnitOfWork(AppDbContext context, IHttpContextAccessor contextAccessor) : IUnitOfWork
     {
         private bool _disposed;
-
         private IAccountRepository _accountRepository;
         private IBankTransactionRepository _bankTransactionRepository;
         private ICustomerRepository _customerRepository;
@@ -67,7 +60,8 @@ namespace BankSystem.Infrastructure
                 var changeLogs = new List<ChangeTracking>();
 
                 // Get current user
-                var userId = userInfo.GetUserId();
+                var userName = contextAccessor.HttpContext?.User?.Identity?.Name;
+                var userId = context.Users.FirstOrDefault(x => x.UserName == userName)?.Id;
 
                 if (userId == null)
                 {
@@ -96,7 +90,8 @@ namespace BankSystem.Infrastructure
                         {
                             Entity = entry.Entity.GetType().Name,
                             Status = changeType,
-                            CreatedAt = DateTime.Now
+                            CreatedAt = DateTime.Now,
+                            UserId = (Guid)userId
                         };
 
                         changeLogs.Add(changeLog);
@@ -128,7 +123,8 @@ namespace BankSystem.Infrastructure
                 var changeLogs = new List<ChangeTracking>();
 
                 // Get current user
-                var userId = userInfo.GetUserId();
+                var userName = contextAccessor.HttpContext?.User?.Identity?.Name;
+                var userId = context.Users.FirstOrDefault(x => x.UserName == userName)?.Id;
 
                 if (userId == null)
                 {
@@ -157,7 +153,8 @@ namespace BankSystem.Infrastructure
                         {
                             Entity = entry.Entity.GetType().Name,
                             Status = changeType,
-                            CreatedAt = DateTime.Now
+                            CreatedAt = DateTime.Now,
+                            UserId = (Guid)userId
                         };
 
                         changeLogs.Add(changeLog);

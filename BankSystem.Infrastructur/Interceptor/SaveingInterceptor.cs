@@ -8,11 +8,6 @@ namespace BankSystem.Infrastructure.Interceptor
 {
     public class SaveingInterceptor : SaveChangesInterceptor
     {
-        private readonly IMediator _mediator;
-        public SaveingInterceptor(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
         public override InterceptionResult<int> SavingChanges(
             DbContextEventData eventData,
             InterceptionResult<int> result)
@@ -36,10 +31,6 @@ namespace BankSystem.Infrastructure.Interceptor
 
             foreach (var entry in dbContext.ChangeTracker.Entries<BaseEntity>())
             {
-                var type = entry.Entity.GetType().Name;
-
-                if (type == nameof(ChangeTracking))
-                    continue;
 
                 switch (entry.State)
                 {

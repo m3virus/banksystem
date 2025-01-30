@@ -15,15 +15,18 @@ namespace BankSystem.Infrastructure
             services.AddPersistence(configuration);
 
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
         private static void AddPersistence(
             this IServiceCollection services,
             IConfiguration configuration)
         {
+            var connectionString = configuration.GetConnectionString("BankSystem");
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.AddInterceptors(new SaveingInterceptor());
-                options.UseSqlServer(configuration.GetValue<string>("AppDb:ConnectionString"));
+                options.UseSqlServer(connectionString);
             });
         }
     }
