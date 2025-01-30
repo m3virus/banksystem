@@ -1,12 +1,19 @@
 ﻿using BankSystem.Domain.Models.Base;
-using Microsoft.AspNetCore.Http;
+using BankSystem.Domain.Models.Entities;
+using BankSystem.Infrastructure.Event;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace BankSystem.Infrastructure.Interceptor
 {
-    public class SaveingInterceptor: SaveChangesInterceptor
+    public class SaveingInterceptor : SaveChangesInterceptor
     {
+        private readonly IMediator _mediator;
+        public SaveingInterceptor(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
         public override InterceptionResult<int> SavingChanges(
             DbContextEventData eventData,
             InterceptionResult<int> result)
@@ -30,12 +37,18 @@ namespace BankSystem.Infrastructure.Interceptor
 
             foreach (var entry in dbContext.ChangeTracker.Entries<BaseEntity>())
             {
+                var type = entry.Entity.GetType().Name;
+
+                if (type == nameof(ChangeTracking))
+                    continue;
 
                 switch (entry.State)
                 {
                     case EntityState.Added:
                         entry.Entity.CreatedAt = DateTime.Now;
                         entry.Entity.IsDeleted = false;
+                        break;
+                    case EntityState.Modified:
                         break;
                     case EntityState.Deleted:
                         entry.State = EntityState.Modified;

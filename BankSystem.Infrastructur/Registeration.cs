@@ -1,6 +1,5 @@
 ﻿using BankSystem.Infrastructure.Context;
 using BankSystem.Infrastructure.Interceptor;
-using BankSystem.Infrastructure.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
