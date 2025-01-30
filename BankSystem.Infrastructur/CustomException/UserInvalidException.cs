@@ -1,7 +1,7 @@
 ﻿
-namespace BankSystem.Infrastructure.Exception
+namespace BankSystem.Infrastructure.CustomException
 {
-    public class UserInvalidException:System.Exception
+    public class UserInvalidException:Exception
     {
         public UserInvalidException() { }
 
@@ -10,7 +10,7 @@ namespace BankSystem.Infrastructure.Exception
         {
         }
 
-        public UserInvalidException(string message, System.Exception innerException)
+        public UserInvalidException(string message, Exception innerException)
             : base(message, innerException)
         {
         }

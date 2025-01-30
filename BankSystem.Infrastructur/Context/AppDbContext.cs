@@ -1,7 +1,6 @@
 ﻿using BankSystem.Domain.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using BankSystem.Infrastructure.Exception;
 using Microsoft.AspNetCore.Http;
 
 namespace BankSystem.Infrastructure.Context

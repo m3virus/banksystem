@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using System.Collections.Generic;
+using System.Linq.Expressions;
 using BankSystem.Domain.Models.Base;
 using BankSystem.Infrastructure.Context;
 using BankSystem.Infrastructure.IRepository;
@@ -8,18 +9,35 @@ namespace BankSystem.Infrastructure.Repository
 {
     public class BaseRepository<TEntity>:IBaseRepository<TEntity> where TEntity : BaseEntity
     {
-        protected readonly AppDbContext _dbContext;
-        protected readonly DbSet<TEntity> _entities;
+        protected readonly AppDbContext DbContext;
+        protected readonly DbSet<TEntity> Entities;
 
         public BaseRepository(AppDbContext dbContext)
         {
-            _dbContext = dbContext;
-            _entities = _dbContext.Set<TEntity>();
+            DbContext = dbContext;
+            Entities = DbContext.Set<TEntity>();
+        }
+
+        public async Task<IList<TEntity>> GetAllAsync()
+        {
+            return await Entities.AsNoTracking().ToListAsync();
+        }
+
+        public ValueTask<TEntity?> GetByIdAsync(Guid id)
+        {
+            return Entities.FindAsync(id);
+        }
+
+        public Task<bool> AnyAsync(Expression<Func<TEntity, bool>>? predicate = null)
+        {
+            return (predicate != null
+                ? Entities.AnyAsync(predicate)
+                : Entities.AnyAsync());
         }
 
         public Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>>? predicate = null, params Expression<Func<TEntity, object>>[]? includes)
         {
-            var query = _entities.AsQueryable();
+            var query = Entities.AsQueryable();
 
             if (includes != null)
             {
@@ -37,7 +55,7 @@ namespace BankSystem.Infrastructure.Repository
         {
             try
             {
-                var query = _entities.AsQueryable().Where(x => !x.IsDeleted);
+                var query = Entities.AsQueryable().Where(x => !x.IsDeleted);
 
                 if (disableTracking) query = query.AsNoTracking();
 
@@ -59,7 +77,7 @@ namespace BankSystem.Infrastructure.Repository
         {
             try
             {
-                _entities.Add(entity);
+                Entities.Add(entity);
             }
             catch (Exception e)
             {
@@ -71,7 +89,7 @@ namespace BankSystem.Infrastructure.Repository
         {
             try
             {
-                _entities.AddRange(entities);
+                Entities.AddRange(entities);
             }
             catch (Exception e)
             {
@@ -83,7 +101,7 @@ namespace BankSystem.Infrastructure.Repository
         {
             try
             {
-                _entities.Update(entity);
+                Entities.Update(entity);
             }
             catch (Exception e)
             {
@@ -95,7 +113,7 @@ namespace BankSystem.Infrastructure.Repository
         {
             try
             {
-                _entities.Remove(entity);
+                Entities.Remove(entity);
             }
             catch (Exception e)
             {

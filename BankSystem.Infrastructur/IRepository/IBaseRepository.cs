@@ -6,6 +6,11 @@ namespace BankSystem.Infrastructure.IRepository
     public interface IBaseRepository<TEntity>
         where TEntity : BaseEntity
     {
+        public Task<IList<TEntity>> GetAllAsync();
+        public ValueTask<TEntity?> GetByIdAsync(Guid id);
+        public Task<bool> AnyAsync(
+            Expression<Func<TEntity, bool>>? predicate = null);
+
         public Task<TEntity?> GetAsync(
             Expression<Func<TEntity, bool>>? predicate = null,
             params Expression<Func<TEntity, object>>[]? includes);
