@@ -25,5 +25,6 @@ namespace BankSystem.Application.Models.CustomerModel
         public double? TransactionValue { get; set; } = null;
         public string? TransactionType { get; set; } = null;
         public string? TransactionNumber { get; set; } = null;
+        public string? IncreaseOrDecrease { get; set; } = null;
     }
 }

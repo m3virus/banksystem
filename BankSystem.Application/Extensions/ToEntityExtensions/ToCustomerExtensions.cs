@@ -65,6 +65,7 @@ namespace BankSystem.Application.Extensions.ToEntityExtensions
                 result.TransactionNumber = action.TransactionNumber;
                 result.TransactionType = action.TransactionEnum.ToEnumTitle();
                 result.TransactionValue = action.TransactionValue;
+                result.IncreaseOrDecrease = action.OriginAccountId == model.AccountId ? "Decrease" : "Increase";
             }
 
             return result;
