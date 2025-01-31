@@ -218,7 +218,7 @@ namespace BankSystem.Application.CQRS.BankTransactionService.Commands.Create
                     TransactionEnum = BankTransactionEnum.Transmission,
                     TransactionNumber = DateTime.Now.GeorgianToPersian(DateTimeFormatStatics.SpecifiedForGeneration)
                         .GenerateTwentyDigitString(),
-                    TransactionValue = request.TransactionValue - double.Parse(Options.BankTax),
+                    TransactionValue = double.Parse(Options.BankTax),
                 }
             };
             return model;
@@ -244,7 +244,7 @@ namespace BankSystem.Application.CQRS.BankTransactionService.Commands.Create
                     TransactionEnum = BankTransactionEnum.Transmission,
                     TransactionNumber = DateTime.Now.GeorgianToPersian(DateTimeFormatStatics.SpecifiedForGeneration)
                         .GenerateTwentyDigitString(),
-                    TransactionValue = request.TransactionValue - double.Parse(Options.BankTax),
+                    TransactionValue = double.Parse(Options.BankTax),
                 }
             };
             return model;
@@ -269,7 +269,7 @@ namespace BankSystem.Application.CQRS.BankTransactionService.Commands.Create
                     TransactionEnum = BankTransactionEnum.Transmission,
                     TransactionNumber = DateTime.Now.GeorgianToPersian(DateTimeFormatStatics.SpecifiedForGeneration)
                         .GenerateTwentyDigitString(),
-                    TransactionValue = request.TransactionValue - double.Parse(Options.BankTax),
+                    TransactionValue = double.Parse(Options.BankTax),
                 }
             };
             return model;

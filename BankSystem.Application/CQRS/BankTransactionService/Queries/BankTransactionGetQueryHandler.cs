@@ -39,6 +39,11 @@ namespace BankSystem.Application.CQRS.BankTransactionService.Queries
                 query = query.Where(x => request.BankTransaction.Contains(x.TransactionEnum));
             }
 
+            if (!string.IsNullOrWhiteSpace(request.TransactionNumber))
+            {
+                query = query.Where(x => request.TransactionNumber.Equals(x.TransactionNumber));
+            }
+
             if (!request.StartingDate.Equals(DateTime.MinValue) && request.StartingDate is not null)
             {
                 query = query.Where(x => x.CreatedAt >= request.StartingDate);

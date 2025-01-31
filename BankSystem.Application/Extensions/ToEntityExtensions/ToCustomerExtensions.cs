@@ -30,7 +30,7 @@ namespace BankSystem.Application.Extensions.ToEntityExtensions
             model.Address = request.Address;
             model.BirthDate = request.BirthDate;
             model.PostCode = request.PostCode;
-            model.PostCode = request.PostCode;
+            model.PhoneNumber = request.PhoneNumber;
             model.UserType = request.UserType;
 
             return model;

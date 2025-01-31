@@ -13,6 +13,7 @@ namespace BankSystem.Application.CQRS.BankTransactionService.Queries
     public class BankTransactionGetQuery:IRequest<BaseResponse<List<BankTransactionSearchModel>>>
     {
         public string AccountNumber { get; set; }
+        public string? TransactionNumber { get; set; }
         public DateTime? StartingDate { get; set; } = null;
         public DateTime? EndDate { get; set; } = null;
         public double? StartingAmount { get; set; } = null;
