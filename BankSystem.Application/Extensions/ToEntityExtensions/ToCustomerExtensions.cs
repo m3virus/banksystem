@@ -42,7 +42,7 @@ namespace BankSystem.Application.Extensions.ToEntityExtensions
             return model;
         }
 
-        public static CustomerSearchModel ToSearchModel(this Customer model)
+        public static CustomerSearchModel ToSearchModel(this Customer model, BankTransaction? action)
         {
             var result = new CustomerSearchModel
             {
@@ -56,11 +56,19 @@ namespace BankSystem.Application.Extensions.ToEntityExtensions
                 PhoneNumber = model.PhoneNumber,
                 PostCode = model.PostCode,
                 AccountNumber = model.Account.AccountNumber,
-                AccountBalance = model.Account.AccountBalance
+                AccountBalance = model.Account.AccountBalance,
+                AccountStatusTitle = model.Account.AccountStatus.ToEnumTitle(),
+
             };
+            if (action != null)
+            {
+                result.TransactionNumber = action.TransactionNumber;
+                result.TransactionType = action.TransactionEnum.ToEnumTitle();
+                result.TransactionValue = action.TransactionValue;
+            }
 
             return result;
-            
+
         }
     }
 }

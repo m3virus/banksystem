@@ -1,11 +1,10 @@
-﻿using System.Linq.Expressions;
-using BankSystem.Application.Extensions.ToEntityExtensions;
+﻿using BankSystem.Application.Extensions.ToEntityExtensions;
 using BankSystem.Application.Models.CustomerModel;
 using BankSystem.Domain.Models.Base;
-using BankSystem.Domain.Models.Entities;
 using BankSystem.Infrastructure;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 
 namespace BankSystem.Application.CQRS.CustomerService.Queries
 {
@@ -22,6 +21,7 @@ namespace BankSystem.Application.CQRS.CustomerService.Queries
         {
 
             var query = _unitOfWork.CustomerRepository.GetQueryable(includes: x => x.Account);
+                
 
             if (query == null)
             {
@@ -51,8 +51,15 @@ namespace BankSystem.Application.CQRS.CustomerService.Queries
 
             var customers = await query.ToListAsync(cancellationToken: cancellationToken);
 
-            var response = customers.Select(x => x.ToSearchModel()).ToList();
+            var response =new List<CustomerSearchModel>();
+            foreach (var customer in customers)
+            {
+                var transaction = _unitOfWork.BankTransactionRepository.
+                    GetQueryable(x => x.DestinationAccountId == customer.AccountId || x.OriginAccountId == customer.AccountId)
+                    .MaxBy(x => x.CreatedAt);
 
+                response.Add(customer.ToSearchModel(transaction));
+            }
             return BaseResponse.Success(response);
         }
     }

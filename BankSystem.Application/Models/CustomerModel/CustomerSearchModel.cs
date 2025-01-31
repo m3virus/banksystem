@@ -21,5 +21,9 @@ namespace BankSystem.Application.Models.CustomerModel
         public string PostCode { get; set; }
         public string AccountNumber { get; set; }
         public double AccountBalance { get; set; }
+        public string AccountStatusTitle { get; set; }
+        public double? TransactionValue { get; set; } = null;
+        public string? TransactionType { get; set; } = null;
+        public string? TransactionNumber { get; set; } = null;
     }
 }

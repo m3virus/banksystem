@@ -18,5 +18,6 @@
         public static Error DeleteFailed = new("Error.DeleteFailed", "failed to delete");
 
         public static Error CustomerNotFound = new("Error.CustomerNotFound", "Customer is not find");
+        public static Error AccountNotFound = new("Error.AccountNotFound", "Account is not find");
     }
 }
