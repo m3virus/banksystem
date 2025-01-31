@@ -21,7 +21,7 @@ namespace BankSystem.Infrastructure
 
             services.AddPersistence(configuration);
 
-            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            //services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 

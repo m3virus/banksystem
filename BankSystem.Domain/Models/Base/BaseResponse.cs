@@ -15,8 +15,6 @@
 
             Error = error;
             IsSuccess = isSuccess;
-
-            var x = new BaseEntity();
             
         }
         public bool IsSuccess { get; set; }

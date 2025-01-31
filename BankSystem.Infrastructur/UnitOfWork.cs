@@ -17,6 +17,25 @@ namespace BankSystem.Infrastructure
         private IBankTransactionRepository _bankTransactionRepository;
         private ICustomerRepository _customerRepository;
         private IChangeTrackingRepository _changeTrackingRepository;
+        
+        public IAccountRepository AccountRepository => _accountRepository??= new AccountRepository(context);
+
+        public IBankTransactionRepository BankTransactionRepository => _bankTransactionRepository ??= new BankTransactionRepository(context);
+
+        public ICustomerRepository CustomerRepository => _customerRepository ??= new CustomerRepository(context);
+        public IChangeTrackingRepository ChangeTrackingRepository => _changeTrackingRepository ??= new ChangeTrackingRepository(context);
+        
+
+        public int SaveChanges()
+        {
+            return context.SaveChanges();
+        }
+
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            return await context.SaveChangesAsync(cancellationToken);
+        }
+
         public void Dispose()
         {
             Dispose(true);
@@ -45,22 +64,5 @@ namespace BankSystem.Infrastructure
             Dispose(false);
         }
 
-        public IAccountRepository AccountRepository => _accountRepository??= new AccountRepository(context);
-
-        public IBankTransactionRepository BankTransactionRepository => _bankTransactionRepository ??= new BankTransactionRepository(context);
-
-        public ICustomerRepository CustomerRepository => _customerRepository ??= new CustomerRepository(context);
-        public IChangeTrackingRepository ChangeTrackingRepository => _changeTrackingRepository ??= new ChangeTrackingRepository(context);
-        
-
-        public int SaveChanges()
-        {
-            return context.SaveChanges();
-        }
-
-        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-        {
-            return await context.SaveChangesAsync(cancellationToken);
-        }
     }
 }

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BankSystem.Application.CQRS.CustomerService.Commands.Create;
+﻿using BankSystem.Application.CQRS.CustomerService.Commands.Create;
 using BankSystem.Application.CQRS.CustomerService.Commands.Update;
 using BankSystem.Application.Models.CustomerModel;
 using BankSystem.Domain.Extensions;
 using BankSystem.Domain.Models.Entities;
-using BankSystem.Domain.Models.Enums;
 
 namespace BankSystem.Application.Extensions.ToEntityExtensions
 {

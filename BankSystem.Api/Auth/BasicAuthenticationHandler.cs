@@ -1,21 +1,22 @@
-﻿using System.Security.Claims;
+﻿using BankSystem.Infrastructure.Options;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Options;
+using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 
 namespace BankSystem.Api.Auth
 {
     public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
+        private readonly UserInfoOption Option;
         public BasicAuthenticationHandler(
             IOptionsMonitor<AuthenticationSchemeOptions> options, 
             ILoggerFactory logger, 
             UrlEncoder encoder, 
-            ISystemClock clock) : base(options, logger, encoder, clock)
+            ISystemClock clock, IOptions<UserInfoOption> userOption) : base(options, logger, encoder, clock)
         {
+            Option = userOption.Value;
         }
 
 
@@ -49,7 +50,7 @@ namespace BankSystem.Api.Auth
             var username = credentials[0];
             var password = credentials[1];
 
-            if (username != "test@fake.com" && password != "subscribe")
+            if (username != Option.UserName && password != Option.Password)
             {
                 return AuthenticateResult.Fail("Authentication failed");
             }
