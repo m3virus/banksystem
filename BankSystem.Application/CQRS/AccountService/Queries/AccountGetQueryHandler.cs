@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BankSystem.Application.CQRS.AccountService.Queries
 {
-    internal class AccountGetQueryHandler
+    public class AccountGetQueryHandler
     {
     }
 }

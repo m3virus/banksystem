@@ -19,6 +19,6 @@
         public static Error CustomerNotFound = new("Error.CustomerNotFound", "Customer is not find");
         public static Error AccountNotFound = new("Error.AccountNotFound", "Account is not find");
 
-        public static Error BankAccountNotFound = new ("Error.BankAccountNotFound", "BankAccount is Not Found")
+        public static Error BankAccountNotFound = new("Error.BankAccountNotFound", "BankAccount is Not Found");
     }
 }

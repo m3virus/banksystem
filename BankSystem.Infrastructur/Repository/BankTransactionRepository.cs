@@ -23,7 +23,7 @@ namespace BankSystem.Infrastructure.Repository
                 DbContext.Accounts.AddRange(accounts);
 
                 var customerTrack = ChangeTrackingService.CreateChangeTracking($"{nameof(BankTransaction)}-{nameof(Account)}",
-                    EntityState.Added.ToString(), Guid.NewGuid());
+                    EntityState.Added.ToString());
 
                 DbContext.ChangeTrackings.Add(customerTrack);
 

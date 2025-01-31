@@ -17,7 +17,6 @@ namespace BankSystem.Infrastructure
         private IBankTransactionRepository _bankTransactionRepository;
         private ICustomerRepository _customerRepository;
         private IChangeTrackingRepository _changeTrackingRepository;
-        private IUserRepository _userRepository;
         public void Dispose()
         {
             Dispose(true);
@@ -52,7 +51,7 @@ namespace BankSystem.Infrastructure
 
         public ICustomerRepository CustomerRepository => _customerRepository ??= new CustomerRepository(context);
         public IChangeTrackingRepository ChangeTrackingRepository => _changeTrackingRepository ??= new ChangeTrackingRepository(context);
-        public IUserRepository UserRepository => _userRepository ??= new UserRepository(context);
+        
 
         public int SaveChanges()
         {

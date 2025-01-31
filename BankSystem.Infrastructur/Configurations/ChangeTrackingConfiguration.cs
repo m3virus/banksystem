@@ -12,10 +12,9 @@ namespace BankSystem.Infrastructure.Configurations
 
             builder.Property(x => x.Entity).IsRequired().HasColumnType("varchar").HasMaxLength(30);
             builder.Property(x => x.Status).IsRequired().HasColumnType("varchar").HasMaxLength(10);
+            builder.Property(x => x.UserName).IsRequired().HasColumnType("varchar").HasMaxLength(30);
 
-            builder.HasOne(x => x.User)
-                .WithMany(x => x.ChangeTrackings)
-                .HasForeignKey(x => x.UserId);
+            
         }
     }
 }

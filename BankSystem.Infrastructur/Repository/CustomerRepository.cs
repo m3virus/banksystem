@@ -26,7 +26,7 @@ namespace BankSystem.Infrastructure.Repository
                 await DbContext.Customers.AddAsync(customer, cancellation);
                 //todo: User Id should change
                 var customerTrack = ChangeTrackingService.CreateChangeTracking(nameof(Customer),
-                    EntityState.Added.ToString(), Guid.NewGuid());
+                    EntityState.Added.ToString());
 
                 track.Add(customerTrack);
 
@@ -41,7 +41,7 @@ namespace BankSystem.Infrastructure.Repository
 
                 await DbContext.Accounts.AddAsync(account, cancellation);
                 var accountTrack = ChangeTrackingService.CreateChangeTracking(nameof(Account),
-                    EntityState.Added.ToString(), Guid.NewGuid());
+                    EntityState.Added.ToString());
                 track.Add(accountTrack);
 
                 await DbContext.ChangeTrackings.AddRangeAsync(track,cancellation);
@@ -67,7 +67,7 @@ namespace BankSystem.Infrastructure.Repository
                 DbContext.Customers.Remove(customer);
                 //todo: User Id should change
                 var customerTrack = ChangeTrackingService.CreateChangeTracking(nameof(Customer),
-                    EntityState.Deleted.ToString(), Guid.NewGuid());
+                    EntityState.Deleted.ToString());
 
                 track.Add(customerTrack);
 
@@ -75,7 +75,7 @@ namespace BankSystem.Infrastructure.Repository
                 //todo: User Id should change
 
                 var accountTrack = ChangeTrackingService.CreateChangeTracking(nameof(Account),
-                    EntityState.Deleted.ToString(), Guid.NewGuid());
+                    EntityState.Deleted.ToString());
                 track.Add(accountTrack);
 
                 await DbContext.ChangeTrackings.AddRangeAsync(track, cancellation);
@@ -102,7 +102,7 @@ namespace BankSystem.Infrastructure.Repository
                 DbContext.Customers.Update(customer);
                 //todo: User Id should change
                 var customerTrack = ChangeTrackingService.CreateChangeTracking(nameof(Customer),
-                    EntityState.Modified.ToString(), Guid.NewGuid());
+                    EntityState.Modified.ToString());
 
                 track.Add(customerTrack);
 

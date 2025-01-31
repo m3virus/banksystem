@@ -1,4 +1,5 @@
 using BankSystem.Api.Extensions;
+using BankSystem.Api.Middlewares;
 using BankSystem.Application;
 using BankSystem.Infrastructure;
 using BankSystem.Infrastructure.Options;
@@ -18,9 +19,8 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplicationServices(builder.Configuration);
 
-
 var app = builder.Build();
-
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

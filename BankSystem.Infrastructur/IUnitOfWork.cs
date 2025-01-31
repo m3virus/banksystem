@@ -13,7 +13,7 @@ namespace BankSystem.Infrastructure
         public IBankTransactionRepository BankTransactionRepository { get; }
         public ICustomerRepository CustomerRepository { get; }
         public IChangeTrackingRepository ChangeTrackingRepository { get; }
-        public IUserRepository UserRepository { get; }
+        
         int SaveChanges();
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }

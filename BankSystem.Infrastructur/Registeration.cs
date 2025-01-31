@@ -3,10 +3,12 @@ using BankSystem.Infrastructure.Interceptor;
 using BankSystem.Infrastructure.IRepository;
 using BankSystem.Infrastructure.Options;
 using BankSystem.Infrastructure.Repository;
+using BankSystem.Infrastructure.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace BankSystem.Infrastructure
 {
@@ -22,6 +24,8 @@ namespace BankSystem.Infrastructure
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.AddConfigurations(configuration);
         }
         private static void AddPersistence(
             this IServiceCollection services,
@@ -38,6 +42,9 @@ namespace BankSystem.Infrastructure
         private static void AddConfigurations(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<BankInfoOption>(configuration.GetSection("BankInfo"));
+            services.Configure<UserInfoOption>(configuration.GetSection("UserInfo"));
+            var userInfoOptions = services.BuildServiceProvider().GetRequiredService<IOptions<UserInfoOption>>().Value;
+            ChangeTrackingService.Configure(new UserInfoOption { UserName = userInfoOptions.UserName });
         }
     }
 

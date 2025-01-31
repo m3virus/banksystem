@@ -7,5 +7,8 @@ namespace BankSystem.Api.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
+        [HttpGet]
+        public IActionResult Get(accountgetq)
+        
     }
 }

@@ -20,9 +20,8 @@ namespace BankSystem.Infrastructure.Repository
             try
             {
                 DbContext.Accounts.Update(entity);
-                
                 var customerTrack = ChangeTrackingService.CreateChangeTracking(nameof(Account),
-                    EntityState.Modified.ToString(), Guid.NewGuid());
+                    EntityState.Modified.ToString());
 
                 track.Add(customerTrack);
 

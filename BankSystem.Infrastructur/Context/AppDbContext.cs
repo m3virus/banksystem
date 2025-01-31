@@ -18,7 +18,6 @@ namespace BankSystem.Infrastructure.Context
         {
         }
 
-        public DbSet<User> Users { get; set; }
         public DbSet<ChangeTracking> ChangeTrackings { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<BankTransaction> BankTransactions { get; set; }

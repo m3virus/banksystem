@@ -8,15 +8,9 @@ namespace BankSystem.Domain.Models.Entities
 
         public string Entity { get; set; }
         public string Status { get; set; }
-
+        public string UserName { get; set; }
         #endregion
 
-        #region Relation
-
-        public Guid UserId { get; set; }
-        public User User { get; set; }
-
-        #endregion
 
     }
 }

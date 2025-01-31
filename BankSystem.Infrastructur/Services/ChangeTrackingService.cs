@@ -5,23 +5,31 @@ using System.Text;
 using System.Threading.Tasks;
 using BankSystem.Domain.Models.Entities;
 using BankSystem.Infrastructure.CustomException;
+using BankSystem.Infrastructure.Options;
 using BankSystem.Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace BankSystem.Infrastructure.Services
 {
-    internal static class ChangeTrackingService
+    public static class  ChangeTrackingService
     {
-        public static ChangeTracking CreateChangeTracking(string entity, string status, Guid userId)
+        private static UserInfoOption _option;
+
+        public static void Configure(UserInfoOption option)
         {
-            var model = new ChangeTracking
+            _option = option;
+        }
+
+        public static ChangeTracking CreateChangeTracking(string entity, string status)
+        {
+
+            return new ChangeTracking
             {
-                UserId = userId,
+                UserName = _option.UserName,
                 Entity = entity,
                 Status = status
             };
-
-            return model;
         }
     }
 }
