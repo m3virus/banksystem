@@ -10,7 +10,7 @@ namespace BankSystem.Infrastructure.Configurations
         {
             builder.HasKey(e => e.Id);
 
-            builder.Property(x => x.Entity).IsRequired().HasColumnType("varchar").HasMaxLength(10);
+            builder.Property(x => x.Entity).IsRequired().HasColumnType("varchar").HasMaxLength(30);
             builder.Property(x => x.Status).IsRequired().HasColumnType("varchar").HasMaxLength(10);
 
             builder.HasOne(x => x.User)

@@ -9,7 +9,6 @@ namespace BankSystem.Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<BankTransaction> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.HasIndex(x => x.TransactionNumber).IsUnique();
 
             builder.Property(x => x.TransactionNumber).IsRequired().HasMaxLength(20);
             builder.Property(x => x.TransactionEnum).IsRequired();

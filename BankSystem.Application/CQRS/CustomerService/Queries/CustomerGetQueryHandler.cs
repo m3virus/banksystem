@@ -1,9 +1,12 @@
-﻿using BankSystem.Application.Extensions.ToEntityExtensions;
+﻿using System.Security.Cryptography.X509Certificates;
+using BankSystem.Application.Extensions.ToEntityExtensions;
 using BankSystem.Application.Models.CustomerModel;
 using BankSystem.Domain.Models.Base;
 using BankSystem.Infrastructure;
+using BankSystem.Infrastructure.Options;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.Identity.Client;
 
 namespace BankSystem.Application.CQRS.CustomerService.Queries
@@ -11,10 +14,12 @@ namespace BankSystem.Application.CQRS.CustomerService.Queries
     public class CustomerGetQueryHandler : IRequestHandler<CustomerGetQuery, BaseResponse<List<CustomerSearchModel>>>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private BankInfoOption Option;
 
-        public CustomerGetQueryHandler(IUnitOfWork unitOfWork)
+        public CustomerGetQueryHandler(IUnitOfWork unitOfWork, IOptions<BankInfoOption> option)
         {
             _unitOfWork = unitOfWork;
+            Option = option.Value;
         }
 
         public async Task<BaseResponse<List<CustomerSearchModel>>> Handle(CustomerGetQuery request, CancellationToken cancellationToken)
@@ -55,7 +60,10 @@ namespace BankSystem.Application.CQRS.CustomerService.Queries
             foreach (var customer in customers)
             {
                 var transaction = _unitOfWork.BankTransactionRepository.
-                    GetQueryable(x => x.DestinationAccountId == customer.AccountId || x.OriginAccountId == customer.AccountId)
+                    GetQueryable(x => x.DestinationAccountId == customer.AccountId 
+                                       || x.OriginAccountId == customer.AccountId)
+                    .Where(x => x.DestinationAccountId != new Guid(Option.AccountId) 
+                                && x.OriginAccountId != new Guid(Option.AccountId))
                     .MaxBy(x => x.CreatedAt);
 
                 response.Add(customer.ToSearchModel(transaction));

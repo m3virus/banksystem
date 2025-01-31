@@ -3,19 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BankSystem.Domain.Models.Base;
-using BankSystem.Domain.Models.Entities;
 using BankSystem.Domain.Models.Enums;
-using MediatR;
 
-namespace BankSystem.Application.CQRS.BankTransactionService.Commands.Create
+namespace BankSystem.Application.Models.CustomerModel
 {
-    public class BankTransactionCreateCommand : IRequest<BaseResponse>
+    public class BankTransactionSearchModel
     {
         public double TransactionValue { get; set; }
-        public BankTransactionEnum TransactionEnum { get; set; }
+        public string TransactionType { get; set; }
+        public string TransactionNumber { get; set; }
+
         public Guid? OriginAccountId { get; set; }
         public Guid? DestinationAccountId { get; set; }
-
     }
 }

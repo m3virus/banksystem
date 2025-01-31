@@ -7,7 +7,7 @@ namespace BankSystem.Infrastructure.Extensions
     {
         public static string Generate()
         {
-            var date = DateTime.Now.GeorgianToPersian(DateTimeFarmatStatics.SpecifiedForGeneration);
+            var date = DateTime.Now.GeorgianToPersian(DateTimeFormatStatics.SpecifiedForGeneration);
             return date;
         }
     }

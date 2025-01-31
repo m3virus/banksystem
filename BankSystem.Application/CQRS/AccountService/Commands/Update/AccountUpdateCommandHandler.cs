@@ -36,6 +36,7 @@ namespace BankSystem.Application.CQRS.AccountService.Commands.Update
             }
             catch (Exception e)
             {
+
                 return BaseResponse.Failure(Error.UpdateFailed);
             }
             

@@ -13,7 +13,7 @@ namespace BankSystem.Domain.Models.Entities
         public DateTime BirthDate { get; set; }
 
         public string PersianBirtdate
-            => BirthDate.GeorgianToPersian(DateTimeFarmatStatics.Date);
+            => BirthDate.GeorgianToPersian(DateTimeFormatStatics.Date);
         public UserTypeEnum UserType { get; set; }
         public string PhoneNumber { get; set; }
         public string Address { get; set; }

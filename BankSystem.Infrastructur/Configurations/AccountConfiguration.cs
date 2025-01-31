@@ -1,10 +1,11 @@
 ﻿using BankSystem.Domain.Models.Entities;
+using BankSystem.Domain.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BankSystem.Infrastructure.Configurations
 {
-    public class AccountConfiguration:IEntityTypeConfiguration<Account>
+    public class AccountConfiguration : IEntityTypeConfiguration<Account>
     {
         public void Configure(EntityTypeBuilder<Account> builder)
         {
@@ -18,6 +19,21 @@ namespace BankSystem.Infrastructure.Configurations
             builder.HasOne(x => x.Customer)
                 .WithOne(x => x.Account)
                 .HasForeignKey<Account>(x => x.CustomerId);
+
+            builder.HasData(BankAccount());
+        }
+
+        private Account BankAccount()
+        {
+            return new Account
+            {
+                Id = new Guid("debd3920-aadb-4d07-9b19-1f9647823a46"),
+                AccountBalance = 0.0,
+                AccountNumber = "11111111111111",
+                AccountStatus = AccountStatusEnum.Active,
+                IsDeleted = false,
+                CustomerId = new Guid("76131e9f-6183-41ad-b3a3-9d6cdccc468d") // FK Reference
+            };
         }
     }
 }

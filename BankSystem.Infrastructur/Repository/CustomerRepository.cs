@@ -35,7 +35,7 @@ namespace BankSystem.Infrastructure.Repository
                     CustomerId = customer.Id,
                     AccountBalance = 0,
                     AccountStatus = AccountStatusEnum.Inactive,
-                    AccountNumber = DateTime.Now.GeorgianToPersian(DateTimeFarmatStatics.SpecifiedForGeneration)
+                    AccountNumber = DateTime.Now.GeorgianToPersian(DateTimeFormatStatics.SpecifiedForGeneration)
                 };
                 //todo: User Id should change
 
@@ -54,6 +54,7 @@ namespace BankSystem.Infrastructure.Repository
             }
             catch (Exception)
             {
+                await transaction.RollbackAsync(cancellation);
                 return BaseResponse.Failure<string>(Error.CreateFailed);
             }
         }
@@ -87,6 +88,7 @@ namespace BankSystem.Infrastructure.Repository
             }
             catch (Exception)
             {
+                await transaction.RollbackAsync(cancellation);
                 return BaseResponse.Failure(Error.DeleteFailed);
             }
         }
@@ -121,6 +123,7 @@ namespace BankSystem.Infrastructure.Repository
             }
             catch (Exception)
             {
+                await transaction.RollbackAsync(cancellation);
                 return BaseResponse.Failure(Error.UpdateFailed);
             }
         }

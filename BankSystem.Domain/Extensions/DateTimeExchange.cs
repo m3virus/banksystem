@@ -20,7 +20,7 @@ namespace BankSystem.Domain.Extensions
         public static DateTime ConvertPersianToGregorian(this string persianDate, string format)
         {
             DateTime gregorianDate = new DateTime();
-            if (format is DateTimeFarmatStatics.Date)
+            if (format is DateTimeFormatStatics.Date)
             {
                 // Parse The Persian Date String
                 string[] dateParts = persianDate.Split('/');
@@ -34,7 +34,7 @@ namespace BankSystem.Domain.Extensions
                 // Convert To DateTime
                 gregorianDate = persianCalendar.ToDateTime(year, month, day, 0, 0, 0, 0);
             }
-            else if (format is DateTimeFarmatStatics.DateAndHour)
+            else if (format is DateTimeFormatStatics.DateAndHour)
             {
                 //Separate Time And Date
                 string date = persianDate.Split(" ")[0];

@@ -5,6 +5,7 @@ using BankSystem.Infrastructure.IRepository;
 using BankSystem.Infrastructure.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.Threading;
 
 namespace BankSystem.Infrastructure
 {
@@ -55,7 +56,7 @@ namespace BankSystem.Infrastructure
 
         public int SaveChanges()
         {
-            
+            return context.SaveChanges();
         }
 
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

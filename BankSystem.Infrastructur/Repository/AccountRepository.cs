@@ -34,11 +34,9 @@ namespace BankSystem.Infrastructure.Repository
             }
             catch (Exception e)
             {
+                transaction.Rollback();
                 throw new Exception(nameof(Account), e);
             }
-
-
-
         }
     }
 }

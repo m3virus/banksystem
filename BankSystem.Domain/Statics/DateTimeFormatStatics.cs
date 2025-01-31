@@ -1,6 +1,6 @@
 ﻿namespace BankSystem.Domain.Statics
 {
-    public static class DateTimeFarmatStatics
+    public static class DateTimeFormatStatics
     {
         public const string Date = "yyyy/MM/dd";
         public const string DateAndHour = "yyyy/MM/dd HH:mm:ss";
