@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using BankSystem.Application.CQRS.CustomerService.Commands.Create;
 using BankSystem.Application.CQRS.CustomerService.Commands.Update;
+using BankSystem.Application.Models.CustomerModel;
+using BankSystem.Domain.Extensions;
 using BankSystem.Domain.Models.Entities;
 using BankSystem.Domain.Models.Enums;
 
@@ -38,6 +40,27 @@ namespace BankSystem.Application.Extensions.ToEntityExtensions
             model.UserType = request.UserType;
 
             return model;
+        }
+
+        public static CustomerSearchModel ToSearchModel(this Customer model)
+        {
+            var result = new CustomerSearchModel
+            {
+                Id = model.Id,
+                Name = model.Name,
+                NationalCode = model.NationalCode,
+                Address = model.Address,
+                BirthDate = model.BirthDate,
+                PersianBirtdate = model.PersianBirtdate,
+                UserTypeTitle = model.UserType.ToEnumTitle(),
+                PhoneNumber = model.PhoneNumber,
+                PostCode = model.PostCode,
+                AccountNumber = model.Account.AccountNumber,
+                AccountBalance = model.Account.AccountBalance
+            };
+
+            return result;
+            
         }
     }
 }
