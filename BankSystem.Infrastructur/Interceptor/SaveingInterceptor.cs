@@ -1,5 +1,7 @@
-﻿using BankSystem.Domain.Models.Base;
+﻿using BankSystem.Domain.Extensions;
+using BankSystem.Domain.Models.Base;
 using BankSystem.Domain.Models.Entities;
+using BankSystem.Domain.Statics;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -35,7 +37,9 @@ namespace BankSystem.Infrastructure.Interceptor
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        //entry.Entity.CreatedAt = DateTime.Now;
+                        entry.Entity.CreatedAt = DateTime.Now;
+                        entry.Entity.PersianCreatedAt =
+                            DateTime.Now.GeorgianToPersian(DateTimeFormatStatics.DateAndHour);
                         entry.Entity.IsDeleted = false;
                         break;
                     case EntityState.Modified:

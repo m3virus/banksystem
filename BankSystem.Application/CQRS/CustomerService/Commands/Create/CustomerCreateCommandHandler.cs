@@ -22,7 +22,11 @@ namespace BankSystem.Application.CQRS.CustomerService.Commands.Create
             var model = request.ToCustomer();
 
             var result = await _unitOfWork.CustomerRepository.AddCustomerWithAccountAsync(model, cancellationToken);
-
+            if (result.IsFailure)
+            {
+                _logger.LogError($"Create Failed {nameof(CustomerCreateCommandHandler)}" +
+                                 $"{result.Error.Message}");
+            }
             return result;
         }
     }

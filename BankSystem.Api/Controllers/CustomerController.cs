@@ -1,14 +1,14 @@
-﻿using BankSystem.Application.CQRS.AccountService.Queries;
+﻿using BankSystem.Application.CQRS.CustomerService.Commands.Create;
+using BankSystem.Application.CQRS.CustomerService.Commands.Update;
 using BankSystem.Application.CQRS.CustomerService.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BankSystem.Api.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class CustomerController : ControllerBase
     {
@@ -21,6 +21,14 @@ namespace BankSystem.Api.Controllers
 
         [HttpPost]
         public async Task<IActionResult> GetCustomer(CustomerGetQuery request)
-            => Ok(_mediator.Send(request));
+            => Ok(await _mediator.Send(request));
+
+        [HttpPost]
+        public async Task<IActionResult> CreateCustomer(CustomerCreateCommand request)
+            => Ok(await _mediator.Send(request));
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateCustomer(CustomerUpdateCommand request)
+            => Ok(await _mediator.Send(request));
     }
 }

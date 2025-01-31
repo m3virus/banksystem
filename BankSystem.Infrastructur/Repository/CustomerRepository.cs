@@ -24,7 +24,6 @@ namespace BankSystem.Infrastructure.Repository
             try
             {
                 await DbContext.Customers.AddAsync(customer, cancellation);
-                //todo: User Id should change
                 var customerTrack = ChangeTrackingService.CreateChangeTracking(nameof(Customer),
                     EntityState.Added.ToString());
 
@@ -37,7 +36,7 @@ namespace BankSystem.Infrastructure.Repository
                     AccountStatus = AccountStatusEnum.Inactive,
                     AccountNumber = DateTime.Now.GeorgianToPersian(DateTimeFormatStatics.SpecifiedForGeneration)
                 };
-                //todo: User Id should change
+               
 
                 await DbContext.Accounts.AddAsync(account, cancellation);
                 var accountTrack = ChangeTrackingService.CreateChangeTracking(nameof(Account),
@@ -52,7 +51,7 @@ namespace BankSystem.Infrastructure.Repository
 
                 return BaseResponse.Success(account.AccountNumber);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 await transaction.RollbackAsync(cancellation);
                 return BaseResponse.Failure<string>(Error.CreateFailed);
@@ -65,14 +64,14 @@ namespace BankSystem.Infrastructure.Repository
             try
             {
                 DbContext.Customers.Remove(customer);
-                //todo: User Id should change
+                
                 var customerTrack = ChangeTrackingService.CreateChangeTracking(nameof(Customer),
                     EntityState.Deleted.ToString());
 
                 track.Add(customerTrack);
 
                 DbContext.Accounts.Remove(customer.Account);
-                //todo: User Id should change
+                
 
                 var accountTrack = ChangeTrackingService.CreateChangeTracking(nameof(Account),
                     EntityState.Deleted.ToString());
@@ -86,7 +85,7 @@ namespace BankSystem.Infrastructure.Repository
 
                 return BaseResponse.Success();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 await transaction.RollbackAsync(cancellation);
                 return BaseResponse.Failure(Error.DeleteFailed);
@@ -100,18 +99,10 @@ namespace BankSystem.Infrastructure.Repository
             try
             {
                 DbContext.Customers.Update(customer);
-                //todo: User Id should change
                 var customerTrack = ChangeTrackingService.CreateChangeTracking(nameof(Customer),
                     EntityState.Modified.ToString());
 
                 track.Add(customerTrack);
-
-                //DbContext.Accounts.Update(account);
-                ////todo: User Id should change
-
-                //var accountTrack = ChangeTrackingService.CreateChangeTracking(nameof(Account),
-                //    EntityState.Modified.ToString(), Guid.NewGuid());
-                //track.Add(accountTrack);
 
                 await DbContext.ChangeTrackings.AddRangeAsync(track, cancellation);
 
@@ -121,7 +112,7 @@ namespace BankSystem.Infrastructure.Repository
 
                 return BaseResponse.Success();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 await transaction.RollbackAsync(cancellation);
                 return BaseResponse.Failure(Error.UpdateFailed);

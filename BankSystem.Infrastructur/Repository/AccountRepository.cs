@@ -13,9 +13,9 @@ namespace BankSystem.Infrastructure.Repository
         {
         }
 
-        public void Update(Account entity)
-        { 
-            using var transaction =  DbContext.Database.BeginTransaction();
+        public async Task<BaseResponse> UpdateAsync(Account entity)
+        {
+            await using var transaction =  await DbContext.Database.BeginTransactionAsync();
             var track = new List<ChangeTracking>();
             try
             {
@@ -27,14 +27,16 @@ namespace BankSystem.Infrastructure.Repository
 
                 DbContext.ChangeTrackings.AddRange(track);
 
-                DbContext.SaveChanges();
+                var result = await DbContext.SaveChangesAsync();
+                await transaction.CommitAsync();
 
-                transaction.Commit();
+                return BaseResponse.Success();
             }
             catch (Exception e)
             {
-                transaction.Rollback();
-                throw new Exception(nameof(Account), e);
+                
+                await transaction.RollbackAsync();
+                return BaseResponse.Failure<int>(Error.UpdateFailed);
             }
         }
     }

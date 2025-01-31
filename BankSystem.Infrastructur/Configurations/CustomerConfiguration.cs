@@ -1,5 +1,7 @@
-﻿using BankSystem.Domain.Models.Entities;
+﻿using BankSystem.Domain.Extensions;
+using BankSystem.Domain.Models.Entities;
 using BankSystem.Domain.Models.Enums;
+using BankSystem.Domain.Statics;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -31,6 +33,8 @@ namespace BankSystem.Infrastructure.Configurations
             {
                 Id = new Guid("76131e9f-6183-41ad-b3a3-9d6cdccc468d"),
                 BirthDate = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                CreatedAt = new DateTime(2025, 2, 1, 0, 0, 0, DateTimeKind.Utc),
+                PersianCreatedAt = new DateTime(2025, 2, 1, 0, 0, 0, DateTimeKind.Utc).GeorgianToPersian(DateTimeFormatStatics.DateAndHour),
                 NationalCode = "1234567890",
                 PostCode = "1234567899",
                 IsDeleted = false,

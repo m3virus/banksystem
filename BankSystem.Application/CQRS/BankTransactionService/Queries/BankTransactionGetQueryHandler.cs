@@ -1,6 +1,7 @@
 ﻿using BankSystem.Application.Extensions.ToEntityExtensions;
 using BankSystem.Application.Models.CustomerModel;
 using BankSystem.Domain.Models.Base;
+using BankSystem.Domain.Models.Entities;
 using BankSystem.Infrastructure;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +25,7 @@ namespace BankSystem.Application.CQRS.BankTransactionService.Queries
                 return BaseResponse.Success(new List<BankTransactionSearchModel>());
             }
             var query = _unitOfWork.BankTransactionRepository
-                .GetQueryable(x => x.DestinationAccountId ==accountId || x.OriginAccountId == accountId);
+                .GetQueryable(x => x.DestinationAccountId == accountId || x.OriginAccountId == accountId);
 
 
             if (query == null)
@@ -64,7 +65,7 @@ namespace BankSystem.Application.CQRS.BankTransactionService.Queries
             }
 
             var customer = await query.ToListAsync(cancellationToken);
-
+            
             if (request.page != 0 && request.page is not null && request.Weight != 0 && request.Weight is not null)
             {
                 var page = Convert.ToInt32(request.page) - 1;

@@ -26,7 +26,7 @@ namespace BankSystem.Application.CQRS.CustomerService.Queries
         {
 
             var query = _unitOfWork.CustomerRepository.GetQueryable(includes: x => x.Account);
-                
+
 
             if (query == null)
             {
@@ -55,28 +55,20 @@ namespace BankSystem.Application.CQRS.CustomerService.Queries
             }
 
             var customers = await query.ToListAsync(cancellationToken);
-            try
+            var response = new List<CustomerSearchModel>();
+            foreach (var customer in customers)
             {
-                var response = new List<CustomerSearchModel>();
-                foreach (var customer in customers)
-                {
-                    var transaction = await _unitOfWork.BankTransactionRepository.GetQueryable()
-                        .Where(x => x.DestinationAccountId != new Guid(Option.AccountId)
-                                    && x.OriginAccountId != new Guid(Option.AccountId))
-                        //.OrderByDescending(x => x.CreatedAt)
-                        .FirstOrDefaultAsync(cancellationToken);
-                    var mod = customer.ToSearchModel(transaction);
-                    response.Add(mod);
-                }
-                return BaseResponse.Success(response);
+                var transaction = await _unitOfWork.BankTransactionRepository.GetQueryable()
+                    .Where(x => x.DestinationAccountId != new Guid(Option.AccountId)
+                                && x.OriginAccountId != new Guid(Option.AccountId))
+                    .OrderByDescending(x => x.CreatedAt)
+                    .FirstOrDefaultAsync(cancellationToken);
+                var mod = customer.ToSearchModel(transaction);
+                response.Add(mod);
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-            
+            return BaseResponse.Success(response);
         }
 
     }
+
 }

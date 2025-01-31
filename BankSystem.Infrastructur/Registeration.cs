@@ -16,12 +16,8 @@ namespace BankSystem.Infrastructure
     {
         public static void AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
-            //var httpContextAccessor = services.BuildServiceProvider()
-            //    .GetRequiredService<IHttpContextAccessor>();
-
+            
             services.AddPersistence(configuration);
-
-            //services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 

@@ -6,8 +6,8 @@ namespace BankSystem.Domain.Models.Base
     public class BaseEntity
     {
         public Guid Id { get; set; } = Guid.NewGuid();
-        public DateTime CreatedAt => DateTime.Now;
-        public string PersianCreatedAt => CreatedAt.GeorgianToPersian(DateTimeFormatStatics.DateAndHour);
+        public DateTime CreatedAt { get; set; }
+        public string PersianCreatedAt { get; set; }
         public bool IsDeleted { get; set; } = false;
     }
 }

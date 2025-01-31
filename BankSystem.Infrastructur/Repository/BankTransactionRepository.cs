@@ -20,7 +20,7 @@ namespace BankSystem.Infrastructure.Repository
             {
                 DbContext.BankTransactions.AddRange(entities);
                 
-                DbContext.Accounts.AddRange(accounts);
+                DbContext.Accounts.UpdateRange(accounts);
 
                 var customerTrack = ChangeTrackingService.CreateChangeTracking($"{nameof(BankTransaction)}-{nameof(Account)}",
                     EntityState.Added.ToString());
