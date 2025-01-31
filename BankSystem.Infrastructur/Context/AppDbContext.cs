@@ -36,6 +36,8 @@ namespace BankSystem.Infrastructure.Context
             public AppDbContext CreateDbContext(string[] args)
             {
                 // Load configuration
+                var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
+
                 var configuration = new ConfigurationBuilder()
                     .SetBasePath(Directory.GetCurrentDirectory())
                     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)

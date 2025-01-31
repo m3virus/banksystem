@@ -35,7 +35,7 @@ namespace BankSystem.Infrastructure.Interceptor
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        entry.Entity.CreatedAt = DateTime.Now;
+                        //entry.Entity.CreatedAt = DateTime.Now;
                         entry.Entity.IsDeleted = false;
                         break;
                     case EntityState.Modified:
