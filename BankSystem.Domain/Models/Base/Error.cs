@@ -14,5 +14,9 @@
         public static Error DestinationAccountIsInActive = new("Error.DestinationAccountIsInActive", "شماره حساب مقصد غیر فعال است");
 
         public static Error CreateFailed = new("Error.CreateFailed", "failed to create");
+        public static Error UpdateFailed = new("Error.UpdateFailed", "failed to update");
+        public static Error DeleteFailed = new("Error.DeleteFailed", "failed to delete");
+
+        public static Error CustomerNotFound = new("Error.CustomerNotFound", "Customer is not find");
     }
 }

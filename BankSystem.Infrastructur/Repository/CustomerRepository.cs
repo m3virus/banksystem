@@ -57,6 +57,72 @@ namespace BankSystem.Infrastructure.Repository
                 return BaseResponse.Failure<string>(Error.CreateFailed);
             }
         }
+        public async Task<BaseResponse> DeleteCustomerWithAccountAsync(Customer customer, CancellationToken cancellation)
+        {
+            await using var transaction = await DbContext.Database.BeginTransactionAsync(cancellation);
+            var track = new List<ChangeTracking>();
+            try
+            {
+                DbContext.Customers.Remove(customer);
+                //todo: User Id should change
+                var customerTrack = ChangeTrackingService.CreateChangeTracking(nameof(Customer),
+                    EntityState.Deleted.ToString(), Guid.NewGuid());
 
+                track.Add(customerTrack);
+
+                DbContext.Accounts.Remove(customer.Account);
+                //todo: User Id should change
+
+                var accountTrack = ChangeTrackingService.CreateChangeTracking(nameof(Account),
+                    EntityState.Deleted.ToString(), Guid.NewGuid());
+                track.Add(accountTrack);
+
+                await DbContext.ChangeTrackings.AddRangeAsync(track, cancellation);
+
+                await DbContext.SaveChangesAsync(cancellation);
+
+                await transaction.CommitAsync(cancellation);
+
+                return BaseResponse.Success();
+            }
+            catch (Exception)
+            {
+                return BaseResponse.Failure(Error.DeleteFailed);
+            }
+        }
+
+        public async Task<BaseResponse> UpdateCustomerAsync(Customer customer, CancellationToken cancellation)
+        {
+            await using var transaction = await DbContext.Database.BeginTransactionAsync(cancellation);
+            var track = new List<ChangeTracking>();
+            try
+            {
+                DbContext.Customers.Update(customer);
+                //todo: User Id should change
+                var customerTrack = ChangeTrackingService.CreateChangeTracking(nameof(Customer),
+                    EntityState.Modified.ToString(), Guid.NewGuid());
+
+                track.Add(customerTrack);
+
+                //DbContext.Accounts.Update(account);
+                ////todo: User Id should change
+
+                //var accountTrack = ChangeTrackingService.CreateChangeTracking(nameof(Account),
+                //    EntityState.Modified.ToString(), Guid.NewGuid());
+                //track.Add(accountTrack);
+
+                await DbContext.ChangeTrackings.AddRangeAsync(track, cancellation);
+
+                await DbContext.SaveChangesAsync(cancellation);
+
+                await transaction.CommitAsync(cancellation);
+
+                return BaseResponse.Success();
+            }
+            catch (Exception)
+            {
+                return BaseResponse.Failure(Error.UpdateFailed);
+            }
+        }
     }
 }

@@ -21,7 +21,9 @@ namespace BankSystem.Application.CQRS.CustomerService.Commands.Create
         {
             var model = request.ToCustomer();
 
-            return await _unitOfWork.CustomerRepository.AddCustomerWithAccountAsync(model,cancellationToken);
+            var result = await _unitOfWork.CustomerRepository.AddCustomerWithAccountAsync(model, cancellationToken);
+
+            return result;
         }
     }
 }

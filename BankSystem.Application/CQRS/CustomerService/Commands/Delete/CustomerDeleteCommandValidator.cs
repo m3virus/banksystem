@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BankSystem.Application.CQRS.CustomerService.Commands.Delete
 {
-    internal class CustomerDeleteCommandValidator
+    public class CustomerDeleteCommandValidator
     {
     }
 }
