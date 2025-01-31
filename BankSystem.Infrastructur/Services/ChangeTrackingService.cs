@@ -12,7 +12,7 @@ using Microsoft.Extensions.Options;
 
 namespace BankSystem.Infrastructure.Services
 {
-    public static class  ChangeTrackingService
+    public static class ChangeTrackingService
     {
         private static UserInfoOption _option;
 
@@ -24,11 +24,11 @@ namespace BankSystem.Infrastructure.Services
         public static ChangeTracking CreateChangeTracking(string entity, string status)
         {
 
-            return new ChangeTracking
+            return new ChangeTracking()
             {
                 UserName = _option.UserName,
                 Entity = entity,
-                Status = status
+                Status = status,
             };
         }
     }
